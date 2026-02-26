@@ -9,10 +9,10 @@ interface RestoMenuCategoryProps {
   id: string;
   title: string;
   items: MenuItem[];
-  onAddToCart: (item: MenuItem) => void;
+  // onAddToCart n'est plus nécessaire car RestoMenuItem utilise useCart directement
 }
 
-export default function RestoMenuCategory({ id, title, items, onAddToCart }: RestoMenuCategoryProps) {
+export default function RestoMenuCategory({ id, title, items }: RestoMenuCategoryProps) {
   return (
     <section id={id} className="mb-16 scroll-mt-24">
       <motion.div
@@ -33,7 +33,6 @@ export default function RestoMenuCategory({ id, title, items, onAddToCart }: Res
             key={item.id}
             item={item}
             index={index}
-            onAddToCart={onAddToCart}
           />
         ))}
       </div>
