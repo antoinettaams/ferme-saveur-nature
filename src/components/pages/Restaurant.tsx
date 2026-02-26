@@ -3,7 +3,7 @@ import { useState } from 'react';
 import RestoHeader from '@/components/restauration/RestoHeader';
 import RestoMenuCategory from '@/components/restauration/RestoMenuCategory';
 import { menuData } from '@/data/menuData';
-import { useCart } from '@/context/CartContext'; // ← Importer le hook du panier
+// import { useCart } from '@/context/CartContext'; // Plus besoin car RestoMenuItem utilise directement le contexte
 
 // Définir les catégories
 const categories = [
@@ -24,7 +24,7 @@ const menuByCategory = {
 
 export default function Restaurant() {
   const [activeCategory, setActiveCategory] = useState<string>('all');
-  const { addToCart } = useCart(); // ← Utiliser le hook pour ajouter au panier
+  // const { addToCart } = useCart(); // ← Plus besoin car RestoMenuItem utilise directement le contexte
 
   const handleSelectCategory = (categoryId: string) => {
     setActiveCategory(categoryId);
@@ -32,8 +32,6 @@ export default function Restaurant() {
       document.getElementById(categoryId)?.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-  // Plus besoin de handleAddToCart ici car on utilise directement addToCart du contexte
 
   return (
     <div>
@@ -52,7 +50,7 @@ export default function Restaurant() {
                 id={id}
                 title={categories.find(c => c.id === id)?.label || id}
                 items={items}
-                onAddToCart={addToCart} // ← Passage de la fonction du contexte
+                // onAddToCart est supprimé car plus nécessaire
               />
             ))
           ) : (
@@ -60,7 +58,7 @@ export default function Restaurant() {
               id={activeCategory}
               title={categories.find(c => c.id === activeCategory)?.label || activeCategory}
               items={menuByCategory[activeCategory as keyof typeof menuByCategory] || []}
-              onAddToCart={addToCart} // ← Passage de la fonction du contexte
+              // onAddToCart est supprimé car plus nécessaire
             />
           )}
         </div>
