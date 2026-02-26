@@ -2,7 +2,7 @@
 import { motion } from 'motion/react';
 import { Utensils, Clock, MapPin, Star, ArrowRight, Flame, Phone } from 'lucide-react';
 import Link from 'next/link';
-import { staggerContainer, fadeInUp, scaleIn } from '../animations';
+import { staggerContainer, fadeInUp, scaleIn } from '@/app/animations';
 
 const menuItems = [
   {
@@ -33,9 +33,9 @@ const menuItems = [
 
 export default function Restauration() {
   return (
-    <div className="pt-24">
+    <div className="pt-16">
       {/* Hero */}
-      <section className="relative h-[70vh] flex items-center justify-center text-center text-white overflow-hidden">
+      <section className="relative h-[90vh] flex items-center justify-center text-center text-white overflow-hidden">
         <motion.div 
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}

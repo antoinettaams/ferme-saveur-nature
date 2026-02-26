@@ -2,25 +2,25 @@
 import { motion } from 'motion/react';
 import { ArrowRight, CheckCircle2, Star, Quote, Utensils, Award, Phone } from 'lucide-react';
 import Link from 'next/link';
-import { staggerContainer, fadeInUp, fadeIn, scaleIn } from '../animations';
+import { staggerContainer, fadeInUp, fadeIn, scaleIn } from '@/app/animations';
 
 const testimonials = [
   { 
-    name: "Moussa Traoré",
+    name: "Moussa AKP",
     role: "Restaurateur",
-    content: "Les poulets de Saveur Nature sont d'une qualité exceptionnelle. Mes clients adorent le goût authentique du poulet braisé.",
+    content: "Les poulets de Saveur Nature sont d'une qualité exceptionnelle.",
     stars: 5
   },
   {
-    name: "Awa Koné",
+    name: "Awa AMS",
     role: "Mère de famille",
     content: "Je n'achète mes œufs que chez Saveur Nature. Ils sont toujours frais et les enfants sentent la différence au petit-déjeuner.",
     stars: 5
   },
   {
-    name: "Jean-Pierre Kouassi",
-    role: "Éleveur",
-    content: "Leurs conseils en élevage m'ont permis de doubler ma production en seulement 6 mois. Une expertise précieuse.",
+    name: "Jean-Pierre ADJ",
+    role: "Gastronome",
+    content: "La meilleure table de la région ! Leur poulet braisé est une explosion de saveurs. On sent vraiment que les produits viennent directement de la ferme à l'assiette.",
     stars: 5
   }
 ];
@@ -78,7 +78,7 @@ export default function Home() {
                 <span>Nos Produits</span>
                 <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px] group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link href="/restauration" className="btn-nature !bg-transparent border-2 border-white hover:!bg-white hover:text-nature text-center text-sm sm:text-base px-4 sm:px-6 py-2.5 sm:py-3">
+              <Link href="/restauration" className="btn-nature !bg-transparent border-2 border-white hover:text-nature text-center text-sm sm:text-base px-4 sm:px-6 py-2.5 sm:py-3">
                 Notre Restaurant
               </Link>
             </motion.div>
@@ -114,7 +114,7 @@ export default function Home() {
           >
             <div className="relative z-10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl aspect-[4/3] lg:aspect-auto lg:h-[500px] xl:h-[600px]">
               <img
-                src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&q=80&w=800"
+                src="https://i.postimg.cc/7bvGPmym/Gemini-Generated-Image-1tlz4h1tlz4h1tlz.png"
                 alt="Notre Ferme"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
@@ -128,7 +128,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="absolute -bottom-4 sm:-bottom-6 -left-4 sm:-left-6 bg-egg p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg z-20 hidden md:block"
             >
-              <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">15+</p>
+              <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">20+</p>
               <p className="text-[10px] sm:text-xs font-medium text-slate-700">Années d'Expérience</p>
             </motion.div>
           </motion.div>
@@ -200,7 +200,7 @@ export default function Home() {
               title: "Pondeuses Rouges",
               desc: "Excellentes pondeuses, robustes et adaptées au climat local.",
               img: "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&q=80&w=400",
-              price: "4 500 FCFA",
+              price: "3 500 FCFA",
               link: "/poules"
             },
             {
@@ -213,8 +213,8 @@ export default function Home() {
             {
               title: "Poulet Braisé Spécial",
               desc: "Mariné aux épices secrètes de la ferme et braisé au feu de bois.",
-              img: "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&q=80&w=400",
-              price: "5 000 FCFA",
+              img: "https://i.pinimg.com/1200x/8a/1e/ee/8a1eee6c06ff887086bf322c26ca1917.jpg",
+              price: "7 000 FCFA",
               link: "/restauration"
             }
           ].map((product, i) => (
@@ -349,7 +349,7 @@ export default function Home() {
               Que vous soyez un particulier, un restaurateur ou un revendeur, nous avons des solutions adaptées à vos besoins.
             </motion.p>
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 lg:gap-6 px-4">
-              <a href="tel:+2250102030405" className="btn-egg flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 py-3 sm:py-4 whitespace-nowrap">
+              <a href="tel:+22893823578" className="btn-egg flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 py-3 sm:py-4 whitespace-nowrap">
                 <Phone size={16} className="sm:w-[18px] sm:h-[18px] lg:w-[20px] lg:h-[20px]" />
                 <span>Appeler Maintenant</span>
               </a>

@@ -17,7 +17,7 @@ const navLinks = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname(); // Remplacer useLocation() par usePathname()
+  const pathname = usePathname();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -36,7 +36,7 @@ export default function Navbar() {
   // Close mobile menu on route change
   useEffect(() => {
     setIsOpen(false);
-  }, [pathname]); // Utiliser pathname au lieu de location
+  }, [pathname]);
 
   // Prevent scroll when mobile menu is open
   useEffect(() => {
@@ -47,13 +47,18 @@ export default function Navbar() {
     }
   }, [isOpen]);
 
+  // Déterminer si on est sur la page d'accueil
+  const isHomePage = pathname === '/';
+
   return (
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-500 ${
-          scrolled 
-            ? 'bg-white/90 backdrop-blur-lg py-3 shadow-lg border-b border-slate-100' 
-            : 'bg-transparent py-6'
+          // Sur la page d'accueil : transparent au début, blanc en scrollant
+          // Sur les autres pages : toujours blanc
+          isHomePage 
+            ? (scrolled ? 'bg-white/90 backdrop-blur-lg py-3 shadow-lg border-b border-slate-100' : 'bg-transparent py-6')
+            : 'bg-white/90 backdrop-blur-lg py-3 shadow-lg border-b border-slate-100'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
@@ -65,10 +70,20 @@ export default function Navbar() {
               SN
             </motion.div>
             <div className="flex flex-col">
-              <span className={`font-serif font-bold text-xl leading-none transition-colors ${scrolled ? 'text-slate-900' : 'text-white'}`}>
+              <span className={`font-serif font-bold text-xl leading-none transition-colors ${
+                // Gestion de la couleur du texte du logo
+                isHomePage 
+                  ? (scrolled ? 'text-slate-900' : 'text-white')
+                  : 'text-slate-900'
+              }`}>
                 Saveur Nature
               </span>
-              <span className={`text-[10px] uppercase tracking-[0.2em] font-bold opacity-70 transition-colors ${scrolled ? 'text-nature' : 'text-egg'}`}>
+              <span className={`text-[10px] uppercase tracking-[0.2em] font-bold opacity-70 transition-colors ${
+                // Gestion de la couleur du sous-titre
+                isHomePage 
+                  ? (scrolled ? 'text-nature' : 'text-egg')
+                  : 'text-nature'
+              }`}>
                 Ferme Avicole
               </span>
             </div>
@@ -82,21 +97,36 @@ export default function Navbar() {
                 href={link.path}
                 className={`px-4 py-2 text-sm font-bold transition-all rounded-full relative group ${
                   pathname === link.path 
-                    ? (scrolled ? 'text-nature' : 'text-white') 
-                    : (scrolled ? 'text-slate-600 hover:text-nature' : 'text-white/80 hover:text-white')
+                    ? // Lien actif
+                      (isHomePage 
+                        ? (scrolled ? 'text-nature' : 'text-white')
+                        : 'text-nature')
+                    : // Lien inactif
+                      (isHomePage 
+                        ? (scrolled ? 'text-slate-600 hover:text-nature' : 'text-white/80 hover:text-white')
+                        : 'text-slate-600 hover:text-nature')
                 }`}
               >
                 {link.name}
                 {pathname === link.path && (
                   <motion.div 
                     layoutId="nav-underline"
-                    className={`absolute bottom-0 left-4 right-4 h-0.5 ${scrolled ? 'bg-nature' : 'bg-egg'}`}
+                    className={`absolute bottom-0 left-4 right-4 h-0.5 ${
+                      isHomePage 
+                        ? (scrolled ? 'bg-nature' : 'bg-egg')
+                        : 'bg-nature'
+                    }`}
                   />
                 )}
               </Link>
             ))}
             <div className="ml-4 pl-4 border-l border-slate-200/20">
-              <Link href="/contact" className={`btn-nature !py-2.5 !px-6 text-sm shadow-xl ${scrolled ? 'shadow-nature/20' : 'shadow-black/20'}`}>
+              <Link 
+                href="/contact" 
+                className={`btn-nature !py-2.5 !px-6 text-sm shadow-xl ${
+                  isHomePage && !scrolled ? 'shadow-black/20' : 'shadow-nature/20'
+                }`}
+              >
                 Commander
               </Link>
             </div>
@@ -104,7 +134,11 @@ export default function Navbar() {
 
           {/* Mobile Toggle */}
           <button
-            className={`lg:hidden p-2 rounded-xl transition-colors ${scrolled ? 'text-slate-900 hover:bg-slate-100' : 'text-white hover:bg-white/10'}`}
+            className={`lg:hidden p-2 rounded-xl transition-colors ${
+              isHomePage 
+                ? (scrolled ? 'text-slate-900 hover:bg-slate-100' : 'text-white hover:bg-white/10')
+                : 'text-slate-900 hover:bg-slate-100'
+            }`}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
@@ -112,14 +146,16 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Scroll Progress Bar */}
-        <motion.div
-          className="absolute bottom-0 left-0 right-0 h-[2px] bg-nature origin-left z-50"
-          style={{ scaleX }}
-        />
+        {/* Scroll Progress Bar - visible seulement quand scrolled ou sur pages internes */}
+        {(scrolled || !isHomePage) && (
+          <motion.div
+            className="absolute bottom-0 left-0 right-0 h-[2px] bg-nature origin-left z-50"
+            style={{ scaleX }}
+          />
+        )}
       </nav>
 
-      {/* Mobile Nav Overlay */}
+      {/* Mobile Nav Overlay - inchangé */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -171,13 +207,10 @@ export default function Navbar() {
                 </div>
               </div>
 
-              <div className="p-8 border-t border-slate-100 bg-slate-50">
+              <div className="p-4 border-t border-slate-100 bg-slate-50">
                 <Link href="/contact" className="btn-nature w-full flex items-center justify-center gap-2 py-4 shadow-lg shadow-nature/20">
-                  <Phone size={20} /> Nous Contacter
+                  <Phone size={15} /> Nous Contacter
                 </Link>
-                <p className="text-center text-xs text-slate-400 mt-6 font-medium">
-                  © {new Date().getFullYear()} Ferme Saveur Nature
-                </p>
               </div>
             </motion.div>
           </motion.div>

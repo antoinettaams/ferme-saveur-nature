@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Maximize2, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
-import { staggerContainer, fadeInUp, scaleIn } from '../animations';
+import { staggerContainer, fadeInUp, scaleIn } from '@/app/animations';
 
 const images = [
   { id: 1, category: 'Ferme', title: 'Nos installations', url: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=800' },
@@ -40,7 +40,7 @@ export default function Galerie() {
   };
 
   return (
-    <div className="pt-24">
+    <div>
       {/* Header */}
       <section className="bg-nature py-24 md:py-32 text-white text-center relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">

@@ -2,7 +2,7 @@
 import { motion } from 'motion/react';
 import { ShoppingCart, CheckCircle2, ShieldCheck, Truck, Zap } from 'lucide-react';
 import Link from 'next/link';
-import { staggerContainer, fadeInUp, scaleIn } from '../animations';
+import { staggerContainer, fadeInUp, scaleIn } from '@/app/animations';
 
 const eggProducts = [
   {
@@ -33,7 +33,7 @@ const eggProducts = [
 
 export default function Oeufs() {
   return (
-    <div className="pt-24">
+    <div>
       {/* Header */}
       <section className="bg-egg py-24 md:py-32 text-slate-900 text-center relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 pointer-events-none">

@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -18,19 +18,8 @@ export default function Footer() {
             </div>
           </Link>
           <p className="text-slate-400 text-sm leading-relaxed">
-            Des produits frais, naturels et un service de restauration d'exception au cœur de l'Afrique de l'Ouest. La qualité de la ferme à votre table.
+            Des produits frais, naturels et un service de restauration d'exception au cœur du Togo. La qualité de la ferme à votre table.
           </p>
-          <div className="flex gap-4">
-            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-nature transition-colors">
-              <Facebook size={18} />
-            </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-nature transition-colors">
-              <Instagram size={18} />
-            </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-nature transition-colors">
-              <Twitter size={18} />
-            </a>
-          </div>
         </div>
 
         {/* Quick Links */}
@@ -41,7 +30,6 @@ export default function Footer() {
             <li><Link href="/poules" className="hover:text-nature transition-colors">Nos Poules</Link></li>
             <li><Link href="/oeufs" className="hover:text-nature transition-colors">Nos Oeufs</Link></li>
             <li><Link href="/restauration" className="hover:text-nature transition-colors">Restauration</Link></li>
-            <li><Link href="/services" className="hover:text-nature transition-colors">Services & Conseils</Link></li>
           </ul>
         </div>
 
@@ -51,11 +39,11 @@ export default function Footer() {
           <ul className="space-y-4 text-sm text-slate-400">
             <li className="flex gap-3">
               <MapPin size={18} className="text-nature shrink-0" />
-              <span>Route de la Ferme, Zone Agricole, Afrique de l'Ouest</span>
+              <span>Aneho, Landjo</span>
             </li>
             <li className="flex gap-3">
               <Phone size={18} className="text-nature shrink-0" />
-              <span>+225 01 02 03 04 05</span>
+              <span>+228 93 82 35 78</span>
             </li>
             <li className="flex gap-3">
               <Mail size={18} className="text-nature shrink-0" />
@@ -72,14 +60,14 @@ export default function Footer() {
               <Clock size={18} className="text-nature shrink-0" />
               <div>
                 <p className="font-medium text-white">Lundi - Samedi</p>
-                <p>08:00 - 19:00</p>
+                <p>08:00 - 17:00</p>
               </div>
             </li>
             <li className="flex gap-3">
               <Clock size={18} className="text-nature shrink-0" />
               <div>
-                <p className="font-medium text-white">Dimanche</p>
-                <p>09:00 - 15:00 (Restauration uniquement)</p>
+                <p className="font-medium text-white">Samedi - Dimanche</p>
+                <p>10:00 - 19:00 (Restauration uniquement)</p>
               </div>
             </li>
           </ul>

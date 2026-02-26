@@ -2,7 +2,7 @@
 import { motion } from 'motion/react';
 import { Check, ShoppingCart, Info, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { staggerContainer, fadeInUp, scaleIn } from '../animations';
+import { staggerContainer, fadeInUp, scaleIn } from '@/app/animations';
 
 const poules = [
   {
@@ -29,7 +29,7 @@ const poules = [
 
 export default function Poules() {
   return (
-    <div className="pt-24">
+    <div>
       {/* Header */}
       <section className="bg-nature py-24 md:py-32 text-white text-center relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
