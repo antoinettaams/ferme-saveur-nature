@@ -4,26 +4,6 @@ import { ArrowRight, CheckCircle2, Star, Quote, Utensils, Award, Phone } from 'l
 import Link from 'next/link';
 import { staggerContainer, fadeInUp, fadeIn, scaleIn } from '@/app/animations';
 
-const testimonials = [
-  { 
-    name: "Moussa AKP",
-    role: "Restaurateur",
-    content: "Les poulets de Saveur Nature sont d'une qualité exceptionnelle.",
-    stars: 5
-  },
-  {
-    name: "Awa AMS",
-    role: "Mère de famille",
-    content: "Je n'achète mes œufs que chez Saveur Nature. Ils sont toujours frais et les enfants sentent la différence au petit-déjeuner.",
-    stars: 5
-  },
-  {
-    name: "Jean-Pierre ADJ",
-    role: "Gastronome",
-    content: "La meilleure table de la région ! Leur poulet braisé est une explosion de saveurs. On sent vraiment que les produits viennent directement de la ferme à l'assiette.",
-    stars: 5
-  }
-];
 
 export default function Home() {
   return (
@@ -286,49 +266,138 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 bg-white relative">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <motion.span variants={fadeIn} initial="initial" whileInView="animate" viewport={{ once: true }} className="text-nature font-bold tracking-widest uppercase text-xs sm:text-sm block mb-2 sm:mb-4">Témoignages</motion.span>
-            <motion.h2 variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true }} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold px-2">Ce que disent nos clients</motion.h2>
+      {/* Section Témoignages */}
+<section className="py-12 sm:py-16 md:py-20 bg-cream">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    {/* En-tête */}
+    <div className="text-center mb-8 sm:mb-10 md:mb-12">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
+        <span className="inline-block px-4 py-2 bg-nature/10 text-nature rounded-full text-xs sm:text-sm font-bold uppercase tracking-widest mb-3 sm:mb-4">
+          Ils nous font confiance
+        </span>
+        <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-nature mb-3">
+          Témoignages de nos clients
+        </h2>
+        <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto px-4">
+          Découvrez ce que nos clients pensent de nos poules et de nos œufs frais.
+        </p>
+      </motion.div>
+    </div>
+
+    {/* Grille de témoignages */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+      {[
+         {
+    id: 1,
+    name: "Koffi A.",
+    role: "Éleveur - Lomé",
+    avatar: "KA",
+    comment: "J'ai acheté 10 poules rousse chez Saveur Nature. Elles sont en pleine forme et pondent bien ! Le taux de ponte est excellent, je recommande vivement ces souches.",
+    rating: 5,
+    date: "Il y a 2 semaines",
+    product: "Poules Rousses (ISA Brown)"
+  },
+  {
+    id: 2,
+    name: "Ama T.",
+    role: "Maman - Kpalimé",
+    avatar: "AT",
+    comment: "Depuis que j'achète mes œufs ici, mes enfants ne veulent plus ceux du marché. Le jaune est bien orangé et le goût est incomparable. Je prends 2 plateaux par semaine !",
+    rating: 5,
+    date: "Il y a 1 mois",
+    product: "Œufs frais (Plateau 30)"
+  },
+  {
+    id: 3,
+    name: "Jean-Marc K.",
+    role: "Restaurateur - Tsévié",
+    avatar: "JK",
+    comment: "Je suis restaurateur et j'utilise exclusivement les poules de Saveur Nature pour mon poulet braisé. La qualité de la chair est exceptionnelle. Mes clients sont conquis !",
+    rating: 5,
+    date: "Il y a 3 semaines",
+    product: "Poules Sussex"
+  },
+      ].map((testimonial, index) => (
+        <motion.div
+          key={testimonial.id}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
+          className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-slate-100 relative group"
+        >
+          {/* Guillemets décoratifs */}
+          <div className="absolute top-3 right-3 sm:top-4 sm:right-4 text-5xl sm:text-6xl text-nature/5 font-serif group-hover:text-nature/10 transition-colors">
+            "
           </div>
 
-          <motion.div 
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
-          >
-            {testimonials.map((t, i) => (
-              <motion.div
+          {/* Étoiles */}
+          <div className="flex gap-1 mb-3">
+            {[...Array(5)].map((_, i) => (
+              <svg
                 key={i}
-                variants={fadeInUp}
-                className="p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl bg-cream border border-slate-100 relative hover:shadow-xl transition-all duration-500"
+                className={`w-4 h-4 sm:w-5 sm:h-5 ${
+                  i < testimonial.rating ? 'text-egg fill-egg' : 'text-slate-200 fill-slate-200'
+                }`}
+                viewBox="0 0 20 20"
               >
-                <Quote className="absolute top-4 sm:top-6 lg:top-8 right-4 sm:right-6 lg:right-8 text-nature/10 w-[32px] h-[32px] sm:w-[40px] sm:h-[40px] lg:w-[56px] lg:h-[56px]" />
-                <div className="flex gap-0.5 sm:gap-1 mb-3 sm:mb-4 lg:mb-6">
-                  {[...Array(t.stars)].map((_, i) => (
-                    <Star key={i} size={14} className="sm:w-[16px] sm:h-[16px] fill-egg text-egg" />
-                  ))}
-                </div>
-                <p className="text-sm sm:text-base lg:text-lg text-slate-700 italic mb-4 sm:mb-6 lg:mb-10 leading-relaxed">"{t.content}"</p>
-                <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full bg-nature/10 flex items-center justify-center text-nature font-bold text-sm sm:text-base lg:text-lg">
-                    {t.name.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="font-bold text-slate-900 text-sm sm:text-base">{t.name}</p>
-                    <p className="text-[10px] sm:text-xs text-nature font-bold uppercase tracking-wider">{t.role}</p>
-                  </div>
-                </div>
-              </motion.div>
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
             ))}
-          </motion.div>
-        </div>
-      </section>
+          </div>
 
+          {/* Commentaire */}
+          <p className="text-xs sm:text-sm text-slate-600 mb-4 leading-relaxed relative z-10 line-clamp-4">
+            "{testimonial.comment}"
+          </p>
+
+          {/* Produit acheté */}
+          <div className="inline-block px-2 py-1 bg-nature/5 text-nature rounded-full text-[8px] sm:text-[10px] font-bold uppercase tracking-wider mb-3">
+            Achat : {testimonial.product}
+          </div>
+
+          {/* Auteur */}
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-nature to-nature/80 flex items-center justify-center text-white font-bold text-xs sm:text-sm shadow-lg">
+              {testimonial.avatar}
+            </div>
+            <div>
+              <h4 className="font-bold text-xs sm:text-sm text-nature">{testimonial.name}</h4>
+              <p className="text-[8px] sm:text-[10px] text-slate-400">{testimonial.role}</p>
+              <p className="text-[7px] sm:text-[8px] text-slate-300 mt-0.5">{testimonial.date}</p>
+            </div>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+
+    {/* Statistiques */}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.3 }}
+      className="mt-8 sm:mt-10 md:mt-12 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4"
+    >
+      {[
+        { number: "500+", label: "Clients satisfaits" },
+        { number: "98%", label: "Recommandent nos produits" },
+        { number: "1000+", label: "Poules vendues" },
+        { number: "4.9/5", label: "Note moyenne" }
+      ].map((stat, i) => (
+        <div key={i} className="bg-white p-3 sm:p-4 rounded-xl text-center shadow-sm">
+          <p className="text-xl sm:text-2xl md:text-3xl font-bold text-nature">{stat.number}</p>
+          <p className="text-[8px] sm:text-[10px] md:text-xs text-slate-500 uppercase tracking-wider">{stat.label}</p>
+        </div>
+      ))}
+    </motion.div>
+  </div>
+</section>
       {/* CTA Section */}
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 bg-nature text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-48 sm:w-64 lg:w-96 h-48 sm:h-64 lg:h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl lg:blur-3xl"></div>

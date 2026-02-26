@@ -2,21 +2,23 @@
 import { motion } from 'motion/react';
 import { ShoppingCart, Flame } from 'lucide-react';
 import { MenuItem } from '@/data/menuData';
+import { useCart } from '@/context/CartContext'; // ← Importer le hook
 
 interface RestoMenuItemProps {
   item: MenuItem;
   index: number;
-  onAddToCart?: (item: MenuItem) => void;
 }
 
-export default function RestoMenuItem({ item, index, onAddToCart }: RestoMenuItemProps) {
+export default function RestoMenuItem({ item, index }: RestoMenuItemProps) {
+  const { addToCart } = useCart(); // ← Utiliser le hook
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       viewport={{ once: true }}
-      className="group relative h-[250px] sm:h-[300px] md:h-[350px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+      className="group relative h-[300px] sm:h-[350px] md:h-[380px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
     >
       {/* Image de fond */}
       <div className="absolute inset-0">
@@ -25,7 +27,6 @@ export default function RestoMenuItem({ item, index, onAddToCart }: RestoMenuIte
           alt={item.name}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
         />
-        {/* Overlay gradient plus prononcé pour meilleure lisibilité */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent group-hover:from-black/100 transition-all duration-500"></div>
       </div>
 
@@ -63,17 +64,15 @@ export default function RestoMenuItem({ item, index, onAddToCart }: RestoMenuIte
           </p>
           
           {/* Bouton d'action */}
-          {onAddToCart && (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => onAddToCart(item)}
-              className="w-full sm:w-auto bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2.5 rounded-xl font-bold hover:bg-nature hover:border-nature transition-all flex items-center justify-center gap-2 text-sm"
-            >
-              <ShoppingCart size={16} />
-              <span>Ajouter à la commande</span>
-            </motion.button>
-          )}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => addToCart(item)} // ← Utiliser addToCart du contexte
+            className="w-full sm:w-auto bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2.5 rounded-xl font-bold hover:bg-nature hover:border-nature transition-all flex items-center justify-center gap-2 text-sm"
+          >
+            <ShoppingCart size={16} />
+            <span>Ajouter à la commande</span>
+          </motion.button>
         </motion.div>
       </div>
 
