@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-[80px] md:pt-[100px] overflow-hidden">
+      <section className="relative min-h-screen flex items-center pt-[70px] md:pt-[60px] overflow-hidden">
         <motion.div 
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}

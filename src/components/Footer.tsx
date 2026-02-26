@@ -27,9 +27,9 @@ export default function Footer() {
           <h3 className="font-serif text-lg font-bold mb-6">Navigation</h3>
           <ul className="space-y-4 text-sm text-slate-400">
             <li><Link href="/" className="hover:text-nature transition-colors">Accueil</Link></li>
-            <li><Link href="/poules" className="hover:text-nature transition-colors">Nos Poules</Link></li>
-            <li><Link href="/oeufs" className="hover:text-nature transition-colors">Nos Oeufs</Link></li>
+            <li><Link href="/boutique" className="hover:text-nature transition-colors">Boutique</Link></li>
             <li><Link href="/restauration" className="hover:text-nature transition-colors">Restauration</Link></li>
+            <li><Link href="/contact" className="hover:text-nature transition-colors">Contact</Link></li>
           </ul>
         </div>
 
