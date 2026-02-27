@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { staggerContainer, fadeInUp } from '@/app/animations';
 
 const images = [
-  { id: 1, category: 'Ferme', title: 'Notre ferme', url: 'https://i.pinimg.com/736x/08/03/97/080397b5b6822ff27f0378f1a98ce3a9.jpg' },
+  { id: 1, category: 'Ferme', title: 'Notre ferme', url: 'https://i.pinimg.com/1200x/c7/27/6b/c7276be84f3742d357515a2ea54acdc5.jpg' },
   { id: 2, category: 'Produits', title: 'Œufs frais du jour', url: 'https://images.unsplash.com/photo-1506976785307-8732e854ad03?auto=format&fit=crop&q=80&w=800' },
   { id: 3, category: 'Restaurant', title: 'Poulet braisé spécial', url: 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&q=80&w=800' },
   { id: 4, category: 'Ferme', title: 'Poules pondeuses', url: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&q=80&w=800' },

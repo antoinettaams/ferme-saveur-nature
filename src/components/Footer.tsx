@@ -67,7 +67,7 @@ export default function Footer() {
               <Clock size={18} className="text-nature shrink-0" />
               <div>
                 <p className="font-medium text-white">Samedi - Dimanche</p>
-                <p>10:00 - 19:00 (Restauration uniquement)</p>
+                <p>09:00 - 19:00 (Restauration uniquement)</p>
               </div>
             </li>
           </ul>
