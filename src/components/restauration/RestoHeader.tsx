@@ -72,39 +72,47 @@ export default function RestoHeader({ onSelectCategory, activeCategory, categori
         {/* Contenu principal centré (sur l'image) */}
         <div className="relative z-10 px-4 sm:px-6 max-w-5xl mx-auto">
           <motion.div
-            initial="initial"
-            animate="animate"
-            variants={staggerContainer}
-          >
-            <motion.div variants={scaleIn} className="mb-6">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 bg-braised/20 rounded-full flex items-center justify-center mx-auto backdrop-blur-sm border-2 border-egg/30">
-                <Flame className="text-egg w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14" />
-              </div>
-            </motion.div>
+  initial="initial"
+  animate="animate"
+  variants={staggerContainer}
+>
+  <motion.div variants={scaleIn} className="mb-6">
+    <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 bg-braised/20 rounded-full flex items-center justify-center mx-auto backdrop-blur-sm border-2 border-egg/30">
+      <Flame className="text-egg w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14" />
+    </div>
+  </motion.div>
 
-            <motion.h1 variants={fadeInUp} className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight text-white">
-              Le Coin Braisé
-            </motion.h1>
+  <motion.h1 variants={fadeInUp} className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight text-white">
+    Le Coin Braisé
+  </motion.h1>
 
-            <motion.p variants={fadeInUp} className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-200 max-w-3xl mx-auto leading-relaxed px-4">
-              Une cuisine authentique, généreuse et préparée avec les meilleurs produits de notre ferme.
-            </motion.p>
+  <motion.p variants={fadeInUp} className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-200 max-w-3xl mx-auto leading-relaxed px-4">
+    Une cuisine authentique, généreuse et préparée avec les meilleurs produits de notre ferme.
+  </motion.p>
 
-            {/* Badges d'information */}
-            <motion.div 
-              variants={fadeInUp}
-              className="flex flex-wrap justify-center gap-4 mt-6 sm:mt-8"
-            >
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                <Clock size={16} className="text-egg" />
-                <span className="text-white text-sm">09h - 18h</span>
-              </div>
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                <MapPin size={16} className="text-egg" />
-                <span className="text-white text-sm">Aneho, Landjo</span>
-              </div>
-            </motion.div>
-          </motion.div>
+  {/* Phrase explicative du service */}
+  <motion.p 
+    variants={fadeInUp}
+    className="text-egg text-sm sm:text-base md:text-lg font-medium mt-3 mb-4"
+  >
+    Le service de Restauration est disponible uniquement:
+  </motion.p>
+
+  {/* Badges d'information */}
+  <motion.div 
+    variants={fadeInUp}
+    className="flex flex-wrap justify-center gap-4 mt-2 sm:mt-4"
+  >
+    <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+      <Clock size={16} className="text-egg" />
+      <span className="text-white text-sm">Samedi & Dimanche • 09h - 18h</span>
+    </div>
+    <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+      <MapPin size={16} className="text-egg" />
+      <span className="text-white text-sm">Aneho, Landjo</span>
+    </div>
+  </motion.div>
+</motion.div>
         </div>
       </section>
 

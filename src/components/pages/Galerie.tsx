@@ -6,18 +6,16 @@ import Link from 'next/link';
 import { staggerContainer, fadeInUp } from '@/app/animations';
 
 const images = [
-  { id: 1, category: 'Ferme', title: 'Nos installations', url: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=800' },
+  { id: 1, category: 'Ferme', title: 'Notre ferme', url: 'https://i.pinimg.com/736x/08/03/97/080397b5b6822ff27f0378f1a98ce3a9.jpg' },
   { id: 2, category: 'Produits', title: 'Œufs frais du jour', url: 'https://images.unsplash.com/photo-1506976785307-8732e854ad03?auto=format&fit=crop&q=80&w=800' },
   { id: 3, category: 'Restaurant', title: 'Poulet braisé spécial', url: 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&q=80&w=800' },
   { id: 4, category: 'Ferme', title: 'Poules pondeuses', url: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&q=80&w=800' },
   { id: 5, category: 'Restaurant', title: 'Ambiance conviviale', url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80&w=800' },
-  { id: 6, category: 'Produits', title: 'Conditionnement', url: 'https://images.unsplash.com/photo-1587486914432-03d1fef47488?auto=format&fit=crop&q=80&w=800' },
-  { id: 7, category: 'Ferme', title: 'Poussins d\'un jour', url: 'https://images.unsplash.com/photo-1594221708779-94832f4320d1?auto=format&fit=crop&q=80&w=800' },
-  { id: 8, category: 'Restaurant', title: 'Grillades au feu de bois', url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800' },
-  { id: 9, category: 'Ferme', title: 'Couveuse moderne', url: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&q=80&w=800' },
-  { id: 10, category: 'Produits', title: 'Plateau d\'œufs', url: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=800' },
-  { id: 11, category: 'Restaurant', title: 'Kedjenou de poulet', url: 'https://images.unsplash.com/photo-1604500131886-1c1b5f5b6b6a?auto=format&fit=crop&q=80&w=800' },
-  { id: 12, category: 'Ferme', title: 'Alimentation naturelle', url: 'https://images.unsplash.com/photo-1523349312806-f5dde0a01c32?auto=format&fit=crop&q=80&w=800' },
+  { id: 6, category: 'Ferme', title: 'Poulet frais', url: 'https://i.pinimg.com/1200x/f6/8a/0a/f68a0af25359f7ad93e35bcb49878a2c.jpg' },
+  { id: 7, category: 'Restaurant', title: 'Grillades au feu de bois', url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800' },
+  { id: 8, category: 'Produits', title: 'Plateau d\'œufs', url: 'https://i.pinimg.com/1200x/c3/bc/2a/c3bc2a66749da8879b0718def6273aa4.jpg' },
+  { id: 9, category: 'Restaurant', title: 'Kedjenou de poulet', url: 'https://i.pinimg.com/1200x/ed/8a/a3/ed8aa38483bfc48ae190218772c20b71.jpg' },
+  { id: 10, category: 'Ferme', title: 'Alimentation naturelle', url: 'https://i.pinimg.com/736x/25/0b/69/250b699ee4ea94189f4b60d16cad89c8.jpg' },
 ];
 
 const categories = ['Tous', 'Ferme', 'Produits', 'Restaurant'];
