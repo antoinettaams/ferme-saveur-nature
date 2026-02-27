@@ -53,7 +53,7 @@ export const menuData: MenuItem[] = [
     id: 'special-2',
     name: "Poulet DG",
     desc: "Le plat préféré des gourmands ! Poulet sauté aux légumes et bananes plantains frites.",
-    price: "5 0s00 FCFA",
+    price: "5 000 FCFA",
     category: 'specialites',
     image: "https://i.pinimg.com/1200x/11/29/f2/1129f2d724f6c10e06108c149f43c993.jpg",
     popular: true
