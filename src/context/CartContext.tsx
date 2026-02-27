@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 // Type unifié pour les articles du panier
 export interface CartItem {
@@ -23,105 +24,102 @@ interface CartContextType {
   clearCart: () => void;
   cartCount: number;
   cartTotal: number;
-  cartType: 'restaurant' | 'boutique' | null; // Type du panier
+  cartType: 'restaurant' | 'boutique' | null;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
-
 const CART_STORAGE_KEY = 'saveur-nature-cart';
+
+// --- Configuration du Style des Toasts ---
+const toastConfig = {
+  style: {
+    borderRadius: '16px',
+    background: '#1B4332', // Couleur Nature
+    color: '#fff',
+    fontSize: '14px',
+    fontWeight: '600',
+    padding: '12px 20px',
+  },
+  success: {
+    iconTheme: { primary: '#FACC15', secondary: '#1B4332' }, // Jaune Egg sur fond vert
+  },
+  error: {
+    style: { background: '#ef4444', borderRadius: '16px', color: '#fff' },
+  }
+};
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
   const [cartType, setCartType] = useState<'restaurant' | 'boutique' | null>(null);
 
-  // Charger le panier depuis localStorage
   useEffect(() => {
     try {
       const savedCart = localStorage.getItem(CART_STORAGE_KEY);
       if (savedCart) {
         const parsedCart = JSON.parse(savedCart);
         setCart(parsedCart);
-        
-        // Déterminer le type du panier chargé
         if (parsedCart.length > 0) {
           const firstItem = parsedCart[0];
-          if (typeof firstItem.price === 'string' && firstItem.price.includes('FCFA')) {
-            setCartType('restaurant');
-          } else {
-            setCartType('boutique');
-          }
+          setCartType(typeof firstItem.price === 'string' && firstItem.price.includes('FCFA') ? 'restaurant' : 'boutique');
         }
       }
     } catch (error) {
-      console.error('Erreur lors du chargement du panier:', error);
+      console.error('Erreur chargement:', error);
     } finally {
       setIsInitialized(true);
     }
   }, []);
 
-  // Sauvegarder dans localStorage
   useEffect(() => {
     if (isInitialized) {
-      try {
-        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-      } catch (error) {
-        console.error('Erreur lors de la sauvegarde du panier:', error);
-      }
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
     }
   }, [cart, isInitialized]);
 
-  const addToCart = (item: CartItem) => {
-    setCart(prev => {
-      // Déterminer le type du nouvel article
-      const newItemType = typeof item.price === 'string' && item.price.includes('FCFA') 
-        ? 'restaurant' 
-        : 'boutique';
-      
-      // Si le panier n'est pas vide, vérifier la compatibilité des types
-      if (prev.length > 0) {
-        const currentType = typeof prev[0].price === 'string' && prev[0].price.includes('FCFA')
-          ? 'restaurant'
-          : 'boutique';
-        
-        if (currentType !== newItemType) {
-          // Types incompatibles
-          alert('Vous ne pouvez pas mélanger des articles de la boutique et du restaurant dans le même panier. Veuillez vider votre panier d\'abord.');
-          return prev;
-        }
-      } else {
-        // Premier article, définir le type du panier
-        setCartType(newItemType);
-      }
-      
-      // Vérifier si l'article existe déjà
-      const existingItem = prev.find(i => i.id === item.id);
-      
-      if (existingItem) {
-        // Augmenter la quantité
-        return prev.map(i => 
-          i.id === item.id 
-            ? { ...i, quantity: (i.quantity || 1) + 1 }
-            : i
-        );
-      }
-      
-      // Ajouter avec quantité 1
-      return [...prev, { ...item, quantity: 1 }];
-    });
-  };
+  
+const addToCart = (item: CartItem) => {
+  const newItemType = typeof item.price === 'string' && item.price.includes('FCFA') ? 'restaurant' : 'boutique';
+  
+  // 1. Vérification du type AVANT de toucher à l'état
+  if (cart.length > 0 && cartType !== newItemType) {
+    toast.error(
+      `Mélange impossible : votre panier contient déjà des articles du ${cartType === 'restaurant' ? "Restaurant" : "Boutique"}.`,
+      { ...toastConfig.error, duration: 5000 }
+    );
+    return;
+  }
+
+  // 2. On détermine si l'article existe déjà pour adapter le message
+  const isExisting = cart.some(i => i.id === item.id);
+
+  // 3. Mise à jour de l'état
+  setCart(prev => {
+    if (isExisting) {
+      return prev.map(i => i.id === item.id ? { ...i, quantity: (i.quantity || 1) + 1 } : i);
+    }
+    return [...prev, { ...item, quantity: 1 }];
+  });
+
+  // 4. Déclenchement du toast EN DEHORS du cycle de rendu de l'état
+  if (isExisting) {
+    toast.success(`Quantité mise à jour : ${item.name}`, toastConfig);
+  } else {
+    setCartType(newItemType);
+    toast.success(`${item.name} ajouté au panier`, toastConfig);
+  }
+};
+
+
 
   const removeFromCart = (itemId: string) => {
+    const itemToRemove = cart.find(i => i.id === itemId);
     setCart(prev => {
       const newCart = prev.filter(item => item.id !== itemId);
-      
-      // Si le panier devient vide, réinitialiser le type
-      if (newCart.length === 0) {
-        setCartType(null);
-      }
-      
+      if (newCart.length === 0) setCartType(null);
       return newCart;
     });
+    if (itemToRemove) toast(`Article retiré`, { icon: '🗑️', ...toastConfig });
   };
 
   const updateQuantity = (itemId: string, quantity: number) => {
@@ -129,49 +127,26 @@ export function CartProvider({ children }: { children: ReactNode }) {
       removeFromCart(itemId);
       return;
     }
-    
-    setCart(prev => 
-      prev.map(item => 
-        item.id === itemId 
-          ? { ...item, quantity }
-          : item
-      )
-    );
+    setCart(prev => prev.map(item => item.id === itemId ? { ...item, quantity } : item));
   };
 
   const clearCart = () => {
     setCart([]);
     setCartType(null);
+    toast("Panier vidé", { icon: '🧹', ...toastConfig });
   };
 
-  // Calculer le nombre total d'articles
   const cartCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-
-  // Calculer le total du panier
   const cartTotal = cart.reduce((sum, item) => {
     const qty = item.quantity || 1;
-    
-    if (typeof item.price === 'string') {
-      const priceStr = item.price;
-      const numericStr = priceStr.replace(/[^\d]/g, '');
-      const price = parseFloat(numericStr);
-      return sum + (isNaN(price) ? 0 : price * qty);
-    } else {
-      return sum + (item.price * qty);
-    }
+    const price = typeof item.price === 'string' ? parseFloat(item.price.replace(/[^\d]/g, '')) : item.price;
+    return sum + (isNaN(price) ? 0 : price * qty);
   }, 0);
 
   return (
-    <CartContext.Provider value={{ 
-      cart, 
-      addToCart, 
-      removeFromCart, 
-      updateQuantity,
-      clearCart, 
-      cartCount,
-      cartTotal,
-      cartType 
-    }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart, cartCount, cartTotal, cartType }}>
+      {/* Configuration globale de l'emplacement des messages */}
+      <Toaster position="bottom-right" reverseOrder={false} />
       {children}
     </CartContext.Provider>
   );
@@ -179,8 +154,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
 export function useCart() {
   const context = useContext(CartContext);
-  if (context === undefined) {
-    throw new Error('useCart must be used within a CartProvider');
-  }
+  if (context === undefined) throw new Error('useCart must be used within a CartProvider');
   return context;
 }

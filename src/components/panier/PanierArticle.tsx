@@ -21,22 +21,16 @@ export default function PanierArticle({
   onRemove 
 }: PanierArticleProps) {
 
-  // Calculer le prix selon le type
   const getItemPrice = () => {
-    if (type === 'restaurant') {
-      return item.price; // Déjà formaté
-    } else {
-      return `${(item.price as number).toLocaleString()} FCFA`;
-    }
+    if (type === 'restaurant') return item.price;
+    return `${(item.price as number).toLocaleString()} FCFA`;
   };
 
   const getItemTotal = () => {
-    if (type === 'restaurant') {
-      const price = parseFloat((item.price as string).replace(/[^\d]/g, ''));
-      return (price * quantity).toLocaleString() + ' FCFA';
-    } else {
-      return ((item.price as number) * quantity).toLocaleString() + ' FCFA';
-    }
+    const price = type === 'restaurant' 
+      ? parseFloat((item.price as string).replace(/[^\d]/g, ''))
+      : (item.price as number);
+    return (price * quantity).toLocaleString() + ' FCFA';
   };
 
   return (
@@ -44,11 +38,12 @@ export default function PanierArticle({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
-      className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all border border-slate-100"
+      className="bg-white rounded-xl p-3 md:p-5 shadow-sm hover:shadow-md transition-all border border-slate-100 mb-4"
     >
-      <div className="flex gap-6">
-        {/* Image */}
-        <div className="w-24 h-24 rounded-xl overflow-hidden shrink-0">
+      <div className="flex flex-col sm:flex-row gap-3 md:gap-6">
+        
+        {/* Image - Plus grande sur ordinateur */}
+        <div className="w-full sm:w-24 md:w-32 lg:w-40 aspect-video sm:aspect-square rounded-lg overflow-hidden shrink-0 shadow-inner">
           <img 
             src={item.image} 
             alt={item.name}
@@ -56,61 +51,71 @@ export default function PanierArticle({
           />
         </div>
 
-        {/* Détails */}
-        <div className="flex-1">
-          <div className="flex justify-between items-start">
-            <div>
-              <h3 className="font-serif text-xl font-bold text-nature mb-1">
-                {item.name}
-              </h3>
-              <p className="text-sm text-slate-500 mb-2">
-                {item.desc}
-              </p>
-              <span className="inline-block px-3 py-1 bg-nature/5 text-nature rounded-full text-xs font-bold">
-                {item.category}
-              </span>
+        {/* Contenu */}
+        <div className="flex-1 flex flex-col justify-between py-1">
+          <div className="space-y-2">
+            {/* En-tête */}
+            <div className="flex justify-between items-start">
+              <div className="flex-1">
+                <span className="inline-block px-2 py-0.5 bg-nature/5 text-nature rounded-full text-[10px] md:text-xs font-bold mb-1">
+                  {item.category}
+                </span>
+                <h3 className="font-serif text-base md:text-xl font-bold text-nature leading-tight">
+                  {item.name}
+                </h3>
+                <p className="text-xs md:text-sm text-slate-500 line-clamp-2 mt-1">
+                  {item.desc}
+                </p>
+              </div>
+              
+              <button
+                onClick={() => onRemove(item.id)}
+                className="p-2 hover:bg-red-50 group rounded-full transition-colors shrink-0 ml-2"
+                title="Supprimer l'article"
+              >
+                <Trash2 className="size-4 md:size-6 text-slate-300 group-hover:text-red-500 transition-colors" />
+              </button>
             </div>
-            
-            {/* Bouton supprimer */}
-            <button
-              onClick={() => onRemove(item.id)}
-              className="p-2 hover:bg-red-50 rounded-full transition-colors"
-            >
-              <Trash2 size={18} className="text-red-400" />
-            </button>
           </div>
 
-          <div className="flex justify-between items-center mt-4 pt-4 border-t border-slate-100">
-            {/* Quantité */}
-            <div className="flex items-center gap-3">
+          {/* Contrôles et Prix */}
+          <div className="flex flex-wrap items-center justify-between gap-4 mt-4 pt-4 border-t border-slate-50">
+            
+            {/* Sélecteur de Quantité - Plus robuste sur ordi */}
+            <div className="flex items-center gap-1 md:gap-3 bg-slate-50 p-1 md:p-1.5 rounded-xl border border-slate-100">
               <button
                 onClick={() => onUpdateQuantity(item.id, quantity - 1)}
-                className="p-1.5 rounded-full bg-slate-100 hover:bg-nature/10 transition-colors"
+                className="p-1.5 md:p-2 rounded-lg bg-white shadow-sm hover:bg-red-50 hover:text-red-500 transition-all"
               >
-                <Minus size={16} className="text-nature" />
+                <Minus className="size-3 md:size-4" />
               </button>
-              <span className="w-8 text-center font-bold text-nature">{quantity}</span>
+              
+              <span className="w-6 md:w-10 text-center font-bold text-sm md:text-base text-nature">
+                {quantity}
+              </span>
+              
               <button
                 onClick={() => onUpdateQuantity(item.id, quantity + 1)}
-                className="p-1.5 rounded-full bg-slate-100 hover:bg-nature/10 transition-colors"
+                className="p-1.5 md:p-2 rounded-lg bg-white shadow-sm hover:bg-nature hover:text-white transition-all"
               >
-                <Plus size={16} className="text-nature" />
+                <Plus className="size-3 md:size-4" />
               </button>
             </div>
 
-            {/* Prix */}
-            <div className="text-right">
-              <p className="text-xs text-slate-400">Prix unitaire</p>
-              <p className="text-lg font-bold text-nature">{getItemPrice()}</p>
-            </div>
-          </div>
+            {/* Détails Prix */}
+            <div className="flex items-center gap-4 md:gap-8">
+              <div className="text-right hidden sm:block">
+                <p className="text-[10px] md:text-xs text-slate-400 uppercase font-semibold">Prix Unitaire</p>
+                <p className="font-semibold text-sm md:text-lg text-slate-600">{getItemPrice()}</p>
+              </div>
 
-          {/* Total par article */}
-          <div className="flex justify-end mt-2 pt-2 border-t border-slate-50">
-            <p className="text-sm">
-              <span className="text-slate-400">Total article: </span>
-              <span className="font-bold text-nature">{getItemTotal()}</span>
-            </p>
+              <div className="text-right">
+                <p className="text-[10px] md:text-xs text-slate-400 uppercase font-semibold">Sous-total</p>
+                <p className="font-black text-base md:text-2xl text-nature">
+                  {getItemTotal()}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
