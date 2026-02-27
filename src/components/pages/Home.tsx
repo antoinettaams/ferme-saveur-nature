@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center pt-[70px] md:pt-[60px] overflow-hidden">
         <motion.div 
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -54,7 +54,7 @@ export default function Home() {
               variants={fadeInUp}
               className="mb-4 flex flex-col sm:flex-row gap-3 sm:gap-4"
             >
-              <Link href="/poules" className="btn-egg flex items-center justify-center gap-2 group text-sm sm:text-base px-4 sm:px-6 py-2.5 sm:py-3">
+              <Link href="/boutique" className="btn-egg flex items-center justify-center gap-2 group text-sm sm:text-base px-4 sm:px-6 py-2.5 sm:py-3">
                 <span>Nos Produits</span>
                 <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px] group-hover:translate-x-1 transition-transform" />
               </Link>
